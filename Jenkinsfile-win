@@ -1,0 +1,30 @@
+pipeline {
+    agent any
+    environment {
+        CI = 'true'
+    }
+    stages {
+        stage('Install') {
+            steps {
+                bat 'npm install'
+            }
+        }
+        stage('Test') {
+            steps {
+                bat './scripts/test.sh'
+            }
+        }
+        stage('Build') {
+            steps {
+                bat 'npm run build'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                bat './scripts/deploy.sh'
+                input message: 'Finished using the web site? (Click "Proceed" to continue)'
+                bat './scripts/kill.sh'
+            }
+        }
+    }
+}
