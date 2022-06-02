@@ -11,7 +11,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                bat './scripts/test.sh'
+                echo 'This is a test.'
             }
         }
         stage('Build') {
@@ -21,9 +21,9 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                bat './scripts/deploy.sh'
+                echo 'This is a Deploy.'
                 input message: 'Finished using the web site? (Click "Proceed" to continue)'
-                bat './scripts/kill.sh'
+                echo 'Killed.'
             }
         }
     }
